@@ -20,22 +20,21 @@ use App\Http\Controllers\TeacherController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+	return view('home');
+})->name('home');
 
 
 Route::get('/quienes-somos', function () {return view('quienes_somos.index');})->name('quienes.somos');
 Route::get('/contactanos', function () {return view('contactanos.index');})->name('contactanos');
 
-
-Route::get('/areas', [App\Http\Controllers\AreaController::class, 'index'])->name('areas.index');
-Route::get('area/list', [AreaController::class, 'index'])->name('area.list');
-Route::get('area/show/{id}', [AreaController::class, 'show'])->name('area.show');
-Route::get('area/create', [AreaController::class, 'create'])->name('area.create');
-Route::post('area/store', [AreaController::class, 'store'])->name('area.store');
-Route::get('area/{area}/edit', [AreaController::class, 'edit'])->name('area.edit');
-Route::put('area/{area}', [AreaController::class, 'update'])->name('area.update');
-Route::delete('area/{area}', [AreaController::class, 'destroy'])->name('area.destroy');
+Route::get('/areas', [AreaController::class, 'index'])->name('areas.index');
+Route::get('/area/list', [AreaController::class, 'index'])->name('area.list');
+Route::get('/area/create', [AreaController::class, 'create'])->name('area.create');
+Route::post('/area/store', [AreaController::class, 'store'])->name('area.store');
+Route::get('/area/show/{id}', [AreaController::class, 'show'])->name('area.show');
+Route::get('/area/{id}/edit', [AreaController::class, 'edit'])->name('area.edit');
+Route::put('/area/{id}', [AreaController::class, 'update'])->name('area.update');
+Route::delete('/area/{id}', [AreaController::class, 'destroy'])->name('area.destroy');
 
 
 

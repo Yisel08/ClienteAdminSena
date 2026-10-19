@@ -4,6 +4,14 @@
 
 <h1>LISTAR AREAS</h1>
 
+<div class="container">
+    <a href="{{ route('area.create') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i>
+        Nueva area
+    </a>
+
+    <br><br>
+
 <table id="idArea" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
@@ -16,6 +24,8 @@
     </thead>
 
     <tbody>
+
+    
         @foreach ($areas as $area)
             <tr>
                 <td>{{ $area['id'] }}</td>
@@ -47,5 +57,6 @@
         @endforeach
     </tbody>
 </table>
+</div>
 
 @endsection

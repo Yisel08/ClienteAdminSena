@@ -6,7 +6,7 @@
 
     <div class="container">
 
-        <a href="#" class="btn btn-success">
+        <a href="{{ route('training_center.create') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Nuevo centro de formacion
         </a>
 
@@ -39,21 +39,25 @@
                         <td>{{ $center['location'] }}</td>
 
                         <td>
-                            <a href="#" class="btn btn-info">
+                            <a href="{{ route('training_center.show', $center['id']) }}" class="btn btn-success">
                                 Mostrar
                             </a>
                         </td>
 
                         <td>
-                            <a href="#" class="btn btn-warning">
+                            <a href="{{ route('training_center.edit', $center['id']) }}" class="btn btn-success">
                                 Editar
                             </a>
                         </td>
 
                         <td>
-                            <button type="button" class="btn btn-danger">
-                                Eliminar centro
-                            </button>
+                            <form action="{{ route('training_center.destroy', $center['id']) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-success">
+                                    Eliminar centro
+                                </button>
+                            </form>
                         </td>
 
                     </tr>

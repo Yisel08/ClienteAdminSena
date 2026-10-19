@@ -14,12 +14,71 @@ class AreaController extends Controller
         return $response->json();
     }
 
-    public function index()
+public function index()
+{
+    $url = env('URL_SERVER_API');
+
+    $areas = $this->fetchDataFromApi($url . '/areas');
+
+    return view('area.index', compact('areas'));
+}
+
+    public function show($id)
     {
         $url = env('URL_SERVER_API');
 
-        $areas = $this->fetchDataFromApi($url . '/areas');
+        $area = $this->fetchDataFromApi($url . '/areas/' . $id);
 
-        return view('area.index', compact('areas'));
+        return view('area.show', compact('area'));
     }
+
+    public function create()
+    {
+        return view('area.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $url = env('URL_SERVER_API');
+
+        Http::post($url . '/areas', $request->all());
+
+        return redirect()->route('area.list');
+    }
+
+    public function edit($id)
+    {
+        $url = env('URL_SERVER_API');
+
+        $area = $this->fetchDataFromApi($url . '/areas/' . $id);
+
+        return view('area.edit', compact('area'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $url = env('URL_SERVER_API');
+
+        Http::put($url . '/areas/' . $id, $request->all());
+
+        return redirect()->route('area.list');
+    }
+
+    public function destroy($id)
+    {
+        $url = env('URL_SERVER_API');
+
+        Http::delete($url . '/areas/' . $id);
+
+        return redirect()->route('area.list');
+    }
+
 }
