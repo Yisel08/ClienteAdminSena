@@ -1,32 +1,39 @@
+
 @extends('layouts.app')
 
 @section('content')
 
-<h1>formulario computer</h1>
+<h1>Formulario Computer</h1>
 
-<form action="{{route('computer.store')}}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('computer.store') }}" method="POST" enctype="multipart/form-data">
 
-@csrf
+    @csrf
 
-<label>
-    Numero:
+    <label>
+        Numero:
+        <br>
+        <input type="number" name="number" value="{{ old('number') }}" required>
+    </label>
     <br>
-    <input type="number" name="number">
-</label>
-<br>
-<br>
-<label>
-    Marca:
     <br>
-    <input type="text" name="brand">
-</label>
-<br>
-<br>
 
- <input type="file" name="urlFoto" class="form-control-file" accept="image/*">
+    <label>
+        Marca:
+        <br>
+        <input type="text" name="brand" value="{{ old('brand') }}" required>
+    </label>
+    <br>
+    <br>
 
+    <div class="mb-3">
+        <label class="form-label">Imagen</label>
+        <input type="file" name="urlFoto" class="form-control" accept="image/*">
+    </div>
 
-<button type="submit">Enviar Formulario:</button>
+    <button type="submit" class="btn btn-outline-success btn-sm">
+        Enviar Formulario
+    </button>
+
 </form>
 
 @endsection

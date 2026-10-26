@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class ComputerController extends Controller
 {
-    private function fetchDataFromApi($url)
+     private function fetchDataFromApi($url)
     {
         $response = Http::get($url);
         return $response->json();
     }
-    
+
     public function index()
     {
         $url = env('URL_SERVER_API');
@@ -39,16 +39,21 @@ class ComputerController extends Controller
         $data = $request->validate([
             'number' => 'required|integer',
             'brand' => 'required|string|max:255',
-            'urlFoto' => 'nullable|image|max:2048',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        unset($data['urlFoto']);
         $url = env('URL_SERVER_API') . '/computers';
+
+        unset($data['urlFoto']);
 
         if ($request->hasFile('urlFoto')) {
             $file = $request->file('urlFoto');
-            Http::attach('urlFoto', file_get_contents($file->getRealPath()), $file->getClientOriginalName())
-                ->post($url, $data);
+
+            Http::attach(
+                'urlFoto',
+                file_get_contents($file->getRealPath()),
+                $file->getClientOriginalName()
+            )->post($url, $data);
         } else {
             Http::post($url, $data);
         }
@@ -69,16 +74,21 @@ class ComputerController extends Controller
         $data = $request->validate([
             'number' => 'required|integer',
             'brand' => 'required|string|max:255',
-            'urlFoto' => 'nullable|image|max:2048',
+            'urlFoto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        unset($data['urlFoto']);
         $url = env('URL_SERVER_API') . '/computers/' . $id;
+
+        unset($data['urlFoto']);
 
         if ($request->hasFile('urlFoto')) {
             $file = $request->file('urlFoto');
-            Http::attach('urlFoto', file_get_contents($file->getRealPath()), $file->getClientOriginalName())
-                ->put($url, $data);
+
+            Http::attach(
+                'urlFoto',
+                file_get_contents($file->getRealPath()),
+                $file->getClientOriginalName()
+            )->post($url, array_merge($data, ['_method' => 'PUT']));
         } else {
             Http::put($url, $data);
         }
